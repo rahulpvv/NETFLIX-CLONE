@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="card-body">
+                  <form method="post" action="{% url 'update_category' dataid=data.id %}" enctype="multipart/form-data">
+                      {% csrf_token %}
+<!--                      <div class="form-group">-->
+<!--                      <select class="form-control" name="category">-->
+<!--                          <option>Select Category</option>-->
+<!--                          <option>Romance</option>-->
+<!--                          <option>Drama</option>-->
+<!--                          <option>Action</option>-->
+<!--                          <option>Horror</option>-->
+<!--                      </select>-->
+<h4>Category</h4>
+<!--                    </div>-->
+                      <div class="form-group">
+                      <label>Category</label>
+                      <input type="text" class="form-control" name="name" value="{{data.name}}">
+                    </div>
+<!--                      <div class="form-group">-->
+<!--                      <label >Director</label>-->
+<!--                      <input type="text" class="form-control" name="director">-->
+<!--                    </div>-->
+                    <div class="form-group">
+                      <label>Discription</label>
+                        <textarea name="discription" class="form-control">{{data.discription}}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Image</label>
+                      <div class="custom-file">
+
+                        <input type="file" class="custom-file-input" name="image" id=""><br><br>
+                          <img src="{{data.image.url}}" width="100px" height="100px">
+                        <label class="custom-file-label" for="">Choose file</label>
+                      </div>
+                    </div><br><br>
+<!--                       <div class="form-group">-->
+<!--                      <label>Vidio</label>-->
+<!--                      <div class="custom-file">-->
+
+<!--                        <input type="file" class="custom-file-input" id="" name="vidio">-->
+<!--                        <label class="custom-file-label" for="">Choose file</label>-->
+<!--                      </div>-->
+<!--                    </div>-->
+                    <div class="form-group">
+<!--                      <div class="custom-control custom-checkbox">-->
+<!--                        <input type="checkbox" class="custom-control-input" id="customControlAutosizing">-->
+<!--&lt;!&ndash;                        <label class="custom-control-label" for="customControlAutosizing"></label>&ndash;&gt;-->
+<!--                      </div>-->
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+                </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+{% if messages %}
+  {% for i in messages %}
+    {% if i.tags == 'warning' %}
+        <script>
+          swal('{{i}}','','warning')
+        </script>
+      {% elif i.tags == 'error' %}
+        <script>
+          swal('{{i}}','','error')
+        </script>
+      {% elif i.tags == 'success' %}
+        <script>
+          swal('{{i}}','','success')
+        </script>
+      {% else %}
+        <script>
+          swal('{{i}}','','info')
+        </script>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+</body>
+</html>
+{% endblock %}

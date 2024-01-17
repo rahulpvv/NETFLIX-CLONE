@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="table-responsive">
+                  <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>Category</th>
+                        <th>Movie Name</th>
+                        <th>Director</th>
+                        <th>Discription</th>
+                        <th>Image</th>
+                        <th>Vidio</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in data %}
+                      <tr>
+                        <td>{{i.category}}</td>
+                        <td>{{i.movie}}</td>
+                        <td>{{i.director}}</td>
+                        <td>{{i.discription}}</td>
+                        <td><img src="{{i.movieimage.url}}" width="100px" height="100px"></td>
+                        <td><video src="{{i.vidio.url}}" width="100px" height="100px"></video></td>
+
+                        <td>
+                           <div class="d-flex align-items-center">
+                          <form method="post" action="{% url 'edit_items' dataid=i.id %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success btn-sm btn-icon-text mr-3">
+                              Edit
+                              <i class="typcn typcn-edit btn-icon-append"></i>
+                            </button>
+                            </form>
+
+                          <form method="post" action="{% url 'delete_items' dataid=i.id %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm btn-icon-text">
+                              Delete
+                              <i class="typcn typcn-delete-outline btn-icon-append"></i>
+                            </button>
+                            </form>
+                           </div>
+
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+{% if messages %}
+  {% for i in messages %}
+    {% if i.tags == 'warning' %}
+        <script>
+          swal('{{i}}','','warning')
+        </script>
+      {% elif i.tags == 'error' %}
+        <script>
+          swal('{{i}}','','error')
+        </script>
+      {% elif i.tags == 'success' %}
+        <script>
+          swal('{{i}}','','success')
+        </script>
+      {% else %}
+        <script>
+          swal('{{i}}','','info')
+        </script>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+</body>
+</html>
+{% endblock %}

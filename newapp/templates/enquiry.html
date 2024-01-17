@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="table-responsive">
+                  <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Subject</th>
+                        <th>Message</th>
+                        <th>Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in data %}
+                      <tr>
+                        <td>{{i.name}}</td>
+                        <td>{{i.email}}</td>
+                        <td>{{i.subject}}</td>
+                        <td>{{i.message}}</td>
+                          <td>
+                               <form method="post" action="{% url 'delete_enq' dataid=i.id %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm btn-icon-text">
+                              Delete
+                              <i class="typcn typcn-delete-outline btn-icon-append"></i>
+                            </button>
+                            </form>
+                          </td>
+<!--                        <td><span class="badge badge-success">Delivered</span></td>-->
+<!--                        <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>-->
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+{% if messages %}
+  {% for i in messages %}
+    {% if i.tags == 'warning' %}
+        <script>
+          swal('{{i}}','','warning')
+        </script>
+      {% elif i.tags == 'error' %}
+        <script>
+          swal('{{i}}','','error')
+        </script>
+      {% elif i.tags == 'success' %}
+        <script>
+          swal('{{i}}','','success')
+        </script>
+      {% else %}
+        <script>
+          swal('{{i}}','','info')
+        </script>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+</body>
+</html>
+{% endblock %}

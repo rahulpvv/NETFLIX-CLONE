@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="table-responsive">
+                  <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>username</th>
+<!--                        <th>password</th>-->
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in data %}
+                      <tr>
+                        <td>{{i.sname}}</td>
+                        <td>{{i.semail}}</td>
+                        <td>{{i.susername}}</td>
+<!--                        <td>{{i.spassword}}</td>-->
+<!--                        <td><span class="badge badge-success">Delivered</span></td>-->
+<!--                        <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>-->
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+</body>
+</html>
+{% endblock %}

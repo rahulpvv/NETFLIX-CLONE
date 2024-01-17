@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="card-body">
+                  <form method="post" action="{% url 'save_items' %}" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="form-group">
+                      <select class="form-control" name="category">
+                          {% for i in data %}
+                          <option>{{i.name}}</option>
+                          {% endfor %}
+                      </select>
+
+                    </div>
+                      <div class="form-group">
+                      <label>Movie Name</label>
+                      <input type="text" class="form-control" name="movie">
+                    </div>
+                      <div class="form-group">
+                      <label >Director</label>
+                      <input type="text" class="form-control" name="director">
+                    </div>
+                    <div class="form-group">
+                      <label>Discription</label>
+                        <textarea name="discription" class="form-control"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Image</label>
+                      <div class="custom-file">
+
+                        <input type="file" class="custom-file-input" name="movieimage" id="">
+                        <label class="custom-file-label" for="">Choose file</label>
+                      </div>
+                    </div>
+                       <div class="form-group">
+                      <label>Vidio</label>
+                      <div class="custom-file">
+
+                        <input type="file" class="custom-file-input"  name="vidio">
+                        <label class="custom-file-label" for="">Choose file</label>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+<!--                        <label class="custom-control-label" for="customControlAutosizing"></label>-->
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+                </div>
+</body>
+</html>
+{% endblock %}
